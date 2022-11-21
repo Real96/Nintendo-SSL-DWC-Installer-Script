@@ -171,9 +171,9 @@ function buildOpensslNginx() {
 	echo
 }
 
-# Create virtual hosts for Nintendo's domains in Nginx
-function createNginxNintendoVh() {
-	echo "Creating Nintendo virtual hosts..."
+# Create server blocks for Nintendo's domains in Nginx
+function createNginxNintendoSb() {
+	echo "Creating Nintendo server blocks..."
 	git clone https://github.com/Real96/Nintendo-DWC-Installer-Script
 
 	if [ "$version" == "Ubuntu 14.04" ]; then
@@ -273,7 +273,7 @@ getPackages
 extractCertificateFiles
 forgeCertificateFiles
 buildOpensslNginx
-createNginxNintendoVh
+createNginxNintendoSb
 getDWCRepo
 configDnsmasq
 addCronJob
