@@ -1,5 +1,5 @@
 # Nintendo DWC Installer Script
-Bash script which installs a Nintendo DWC server on your PC
+Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator on your PC
 
 ## Requirements
 - Linux Ubuntu 14 or upper or Linux Debian 9 or upper. Can be installed in a VPS or in a virtual machine with bridged network
@@ -20,3 +20,4 @@ Bash script which installs a Nintendo DWC server on your PC
 
 ## Credits
 - [shutterbug2000](https://github.com/shutterbug2000) who discovered [the flaw](https://github.com/KaeruTeam/nds-constraint)
+- [Vega](https://mariokartwii.com/member.php?action=profile&uid=1) for the DWC emulator setup [guide](https://mariokartwii.com/showthread.php?tid=885)
