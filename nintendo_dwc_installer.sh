@@ -61,7 +61,7 @@ function getPackages() {
 	echo "Installing required packages..."
 	dpkg --configure -a  # Fix possible dpkg errors
 	apt-get update
-	apt-get install make gcc python2.7 dnsmasq git net-tools wget curl -y
+	apt-get install make gcc python2.7 dnsmasq git net-tools wget -y
 
 	if [ "$version" == "Ubuntu 20.04" ] || [ "$version" == "Ubuntu 22.04" ] ||
 		[ "$version" == "Debian GNU/Linux 11" ];
@@ -200,7 +200,7 @@ function configDnsmasq() {
 	echo -e "----------dnsmasq configuration----------\nYour LAN IP is:"
 	hostname -I  # Get LAN IP
 	echo "Your public IP is:"
-	curl https://ipinfo.io/ip  # Get public IP
+	wget -q -O - ipinfo.io/ip  # Get public IP
 	echo -e "\nType in your IP:"
 	read -re IP  # Get IP from user input
 	cat >>/etc/dnsmasq.conf <<EOF  # Append empty line
