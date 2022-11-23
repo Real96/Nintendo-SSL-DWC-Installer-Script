@@ -105,7 +105,7 @@ ro@nintendo.net
 .
 .
 EOF
-	openssl x509 -req -in server.csr -CA NWC.crt -CAkey NWC.key -out server.crt -days 7305 -sha1
+	openssl x509 -req -in server.csr -CA NWC.crt -CAkey NWC.key -CAcreateserial -out server.crt -days 7305 -sha1
 	cat server.crt NWC.crt > server-chain.crt
 	rm !("server.key"|"server-chain.crt")
 	echo
