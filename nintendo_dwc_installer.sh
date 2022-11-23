@@ -11,8 +11,7 @@ function checkOSVersion() {
 	if [[ "$NAME" == "Ubuntu" && $VERSION_ID < 14 ]] || [[ "$NAME" == "Debian GNU/Linux" && $VERSION_ID < 9 ]] ||
 		[[ "$NAME" != "Ubuntu" && "$NAME" != "Debian GNU/Linux" ]];
 	then
-		echo "This Linux distro is not currently supported!"
-		echo "Supported distro: Ubuntu 14+ or Debian 9+"
+		echo -e "This Linux distro is not currently supported!\nSupported distro: Ubuntu 14+ or Debian 9+"
 
 		exit 1
 	fi
@@ -21,9 +20,7 @@ function checkOSVersion() {
 # Check if "00000011.app" file exists
 function checkCertFile() {
 	if [ ! -f "00000011.app" ]; then
-		echo "Unable to find \"00000011.app\" NAND file!"
-		echo "Be sure to put it in the same path of the script"
-		echo
+		echo -e "Unable to find \"00000011.app\" NAND file!\nBe sure to put it in the same path of the script\n"
 
 		exit 1
 	fi
@@ -43,14 +40,12 @@ function checkSources() {
 	if ping -c 2 github.com >/dev/nul && ping -c 2 www.openssl.org >/dev/nul &&
 		ping -c 2 www.nginx.com >/dev/nul && ping -c 2 bootstrap.pypa.io >/dev/nul;
 	then
-		echo "All needed sources are reachable!"
+		echo -e "All needed sources are reachable!\n"
 	else
-		echo "Unable to reach all the needed sources!"
+		echo -e "Unable to reach all the needed sources!\n"
 
 		exit 1
 	fi
-
-	echo
 }
 
 # Install pip
@@ -178,18 +173,14 @@ function createNginxNintendoSb() {
 
 	if [ "$version" == "Ubuntu 14.04" ]; then
 		mv /var/www/Nintendo-DWC-Installer-Script/nginx_conf/14/dwc-hosts /etc/nginx/sites-available/
-		echo "Done!"
-		echo "enabling..."
+		echo -e "Done!\nenabling...\n"
 		ln -s /etc/nginx/sites-available/dwc-hosts /etc/nginx/sites-enabled
 		service nginx restart  # Start nginx
 	else
 		mv -f /var/www/Nintendo-DWC-Installer-Script/nginx_conf/16+/nginx.conf /usr/local/nginx/conf/
-		echo "Done!"
-		echo "enabling..."
+		echo -e "Done!\nenabling...\n"
 		/usr/local/nginx/sbin/nginx  # Start nginx
 	fi
-
-	echo
 }
 
 # Download the DWC source from github
@@ -197,8 +188,7 @@ function getDWCRepo() {
 	echo "Downloading the DWC server..."
 	git clone https://github.com/Real96/dwc_network_server_emulator
 	chmod -R 777 .
-	echo "Done!"
-	echo "enabling..."
+	echo -e "Done!\nenabling..."
 	cd /var/www/dwc_network_server_emulator/
 	(python2.7 master_server.py &) &>/dev/null  # Run DWC in the background and avoid printing its output so the terminal won't stuck on it
 	sleep 3
@@ -207,13 +197,11 @@ function getDWCRepo() {
 
 # Configure dnsmasq
 function configDnsmasq() {
-	echo "----------dnsmasq configuration----------"
-	echo "Your LAN IP is:"
+	echo -e "----------dnsmasq configuration----------\nYour LAN IP is:"
 	hostname -I  # Get LAN IP
 	echo "Your public IP is:"
 	curl https://ipinfo.io/ip  # Get public IP
-	echo -e "\n"
-	echo "Type in your IP:"
+	echo -e "\nType in your IP:"
 	read -re IP  # Get IP from user input
 	cat >>/etc/dnsmasq.conf <<EOF  # Append empty line
 
@@ -231,11 +219,8 @@ EOF
 address=/nintendowifi.net/$IP
 listen-address=$IP,127.0.0.1
 EOF
-	echo
-	echo "dnsmasq setup completed!"
-	echo "enabling..."
+	echo -e "\ndnsmasq setup completed!\nenabling...\n"
 	service dnsmasq restart >/dev/nul  # Restart dnsmasq
-	echo
 }
 
 # Ask user to add a cron job which will automatically start the server at system boot
@@ -255,16 +240,14 @@ function addCronJob() {
 		mkdir -p /cron-logs/
 		echo "@reboot sh /start_dwc_server.sh >/cron-logs/cronlog 2>&1" >/tmp/alt-cron
 		crontab -u $USER /tmp/alt-cron
-		echo "Cron job created!"
+		echo -e "\nCron job created!\n"
 	fi
 
 	rm -r /var/www/Nintendo-DWC-Installer-Script
-	echo
 }
 
 function endMessage() {
-	echo "Done! Your personal DWC server is now ready!"
-	echo
+	echo -e "Done! Your personal DWC server is now ready!\n"
 }
 
 # main
