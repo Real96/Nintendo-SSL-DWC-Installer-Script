@@ -237,9 +237,8 @@ function addCronJob() {
 		fi
 
 		chmod 777 /start_dwc_server.sh
-		mkdir -p /cron-logs/
-		echo "@reboot sh /start_dwc_server.sh >/cron-logs/cronlog 2>&1" >/tmp/alt-cron
-		crontab -u $USER /tmp/alt-cron
+		echo "@reboot sh /start_dwc_server.sh" >/tmp/dwc-cron
+		crontab -u $USER /tmp/dwc-cron
 		echo -e "\nCron job created!\n"
 	fi
 
