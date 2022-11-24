@@ -1,5 +1,5 @@
 # Nintendo DWC Installer Script
-Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator on your PC
+Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator with SSL support on your PC
 
 ## Requirements
 - Linux Ubuntu 14 or upper or Linux Debian 9 or upper. Can be installed in a VPS or in a virtual machine with bridged network
