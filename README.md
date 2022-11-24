@@ -1,4 +1,4 @@
-# Nintendo DWC Installer Script
+# Nintendo SSL DWC Installer Script
 Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator with SSL support on your PC
 
 ## Requirements
