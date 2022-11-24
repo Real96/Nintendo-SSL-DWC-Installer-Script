@@ -112,7 +112,7 @@ EOF
 }
 
 # Enable weak ciphers in openssl conf file
-function setOpnesslConf() {
+function setOpenesslConf() {
 	sed -i '1iopenssl_conf = default_conf' /usr/local/ssl/openssl.cnf  # Write at the beginning of openssl.cnf
 	cat >> /usr/local/ssl/openssl.cnf <<EOF
 
@@ -133,11 +133,12 @@ function buildOpenssl() {
 	./config enable-ssl3 enable-ssl3-method enable-weak-ssl-ciphers  # Enable weak ssl ciphers in openssl building config file
 	make
 	make install
-	setOpnesslConf
+	setOpenesslConf
 }
 
 function buildNginx() {
 	cd /var/www/nginx-1.23.2/
+	apt-get install libpcre3 libpcre3-dev zlib1g zlib1g-dev -y  # Packages needed for building nginx source
 	./configure --with-http_ssl_module --with-ld-opt="-L/usr/local"  # Link openssl build to nginx
 	make
 	make install
@@ -152,7 +153,6 @@ function buildOpensslNginx() {
 		apt-get install nginx -y
 	else
 		echo "Building openssl and nginx enabling weak ciphers..."
-		apt-get install libpcre3 libpcre3-dev zlib1g zlib1g-dev -y  # Packages needed for building the sources
 		wget http://nginx.org/download/nginx-1.23.2.tar.gz https://www.openssl.org/source/openssl-1.1.1s.tar.gz
 		cat *.tar.gz | tar -xzif -  # Decompress all .tar.gz files
 		chmod -R 777 .
