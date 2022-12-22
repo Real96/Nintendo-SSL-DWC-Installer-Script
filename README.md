@@ -21,3 +21,4 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 ## Credits
 - [shutterbug2000](https://github.com/shutterbug2000) who discovered [the flaw](https://github.com/KaeruTeam/nds-constraint)
 - [Vega](https://mariokartwii.com/member.php?action=profile&uid=1) for the DWC emulator setup [guide](https://mariokartwii.com/showthread.php?tid=885)
+- [flewkey](https://flewkey.com/about.html) for his [guide](https://flewkey.com/blog/2020-07-12-nds-constraint.html) about the SSL setup and for his help
