@@ -1,5 +1,5 @@
 # Nintendo SSL DWC Installer Script
-Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator with SSL support on your PC
+Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator with SSL support on your PC.
 
 ## Requirements
 - Linux Ubuntu 14 or upper or Linux Debian 9 or upper. Can be installed in a VPS or in a virtual machine with bridged network
@@ -18,7 +18,10 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 - `cd /path/to/nintendo_dwc_installer.sh`
 - `./nintendo_ssl_dwc_installer.sh`
 
+## Fix dnsmasq not handling DNS requests in Azure VPS
+In Azure VPS (and probably in some others) you have to use the local IP instead of the public one.
+
 ## Credits
-- [shutterbug2000](https://github.com/shutterbug2000) who discovered [the flaw](https://github.com/KaeruTeam/nds-constraint)
-- [Vega](https://mariokartwii.com/member.php?action=profile&uid=1) for the DWC emulator setup [guide](https://mariokartwii.com/showthread.php?tid=885)
+- [shutterbug2000](https://github.com/shutterbug2000) who discovered the [flaw](https://github.com/KaeruTeam/nds-constraint)
+- [Vega](https://mariokartwii.com/member.php?action=profile&uid=1) for his DWC emulator setup [guide](https://mariokartwii.com/showthread.php?tid=885)
 - [flewkey](https://flewkey.com/about.html) for his [guide](https://flewkey.com/blog/2020-07-12-nds-constraint.html) about the SSL setup and for his help
