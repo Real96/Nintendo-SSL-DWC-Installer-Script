@@ -16,7 +16,7 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 - `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean`
 - Put the script and the file `00000011.app` in the same folder
 - `cd /path/to/nintendo_dwc_installer.sh`
-- `./nintendo_dwc_installer.sh`
+- `./nintendo_ssl_dwc_installer.sh`
 
 ## Credits
 - [shutterbug2000](https://github.com/shutterbug2000) who discovered [the flaw](https://github.com/KaeruTeam/nds-constraint)
