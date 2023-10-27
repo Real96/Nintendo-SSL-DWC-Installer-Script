@@ -2,7 +2,8 @@
 Bash script which installs [this](https://github.com/Real96/dwc_network_server_emulator) Nintendo DWC server emulator with SSL support on your PC.
 
 ## Requirements
-- Linux Ubuntu 14 or upper or Linux Debian 9 or upper. Can be installed in a VPS or in a virtual machine with bridged network
+- VPS or virtual machine with bridged network
+- Linux Ubuntu 14 or upper or Linux Debian 9 or upper
 - File `00000011.app`, which can be extracted from a Nintendo Wii NAND dump
 - WiFi with WEP/no protection, wireless type 802.11b and frequency 2.4GHz
 
