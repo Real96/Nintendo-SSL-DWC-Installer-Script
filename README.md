@@ -4,7 +4,7 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 ## Requirements
 - VPS or virtual machine with bridged network
 - Linux Ubuntu 14 or upper or Linux Debian 9 or upper
-- File `00000011.app`, which can be extracted from a Nintendo Wii NAND dump
+- File `00000011.app`, which can be easily extracted from a Nintendo Wii NAND dump
 - WiFi with WEP/no protection, wireless type 802.11b and frequency 2.4GHz
 
 ## Fix error "User is not in sudoers file" in Debian
