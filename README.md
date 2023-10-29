@@ -16,7 +16,9 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 ## Usage
 - `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean`
 - Put the script and the file `00000011.app` in the same folder
+- Open ports `53`, `80` and `443` if you use a VPS or your public IP
 - `cd /path/to/nintendo_ssl_dwc_installer.sh`
+- `chmod 777 nintendo_ssl_dwc_installer.sh`
 - `./nintendo_ssl_dwc_installer.sh`
 
 ## Fix dnsmasq not handling DNS requests in Azure VPS
