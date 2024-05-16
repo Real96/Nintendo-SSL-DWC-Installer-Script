@@ -48,6 +48,18 @@ function checkSources() {
 	fi
 }
 
+# Add Ubuntu 22.04 repository for Python2.7 to source file
+function addRepo() {
+	cat >>/etc/apt/sources.list.d/ubuntu.sources <<EOF
+
+Types: deb
+URIs: http://it.archive.ubuntu.com/ubuntu/
+Suites: jammy jammy-updates
+Components: universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF
+}
+
 # Install pip
 function getPip() {
 	wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
@@ -60,11 +72,16 @@ function getPip() {
 function getPackages() {
 	echo "Installing required packages..."
 	dpkg --configure -a  # Fix possible dpkg errors
+
+	if [ "$version" == "Ubuntu 24.04" ]; then
+		addRepo
+	fi
+
 	apt-get update
 	apt-get install make gcc python2.7 dnsmasq git net-tools wget -y
 
 	if [ "$version" == "Ubuntu 20.04" ] || [ "$version" == "Ubuntu 22.04" ] ||
-		[ "$version" == "Debian GNU/Linux 11" ];
+		[ "$version" == "Ubuntu 24.04" ] || [ "$version" == "Debian GNU/Linux 11" ];
 	then
 		getPip
 		pip install twisted
@@ -197,18 +214,18 @@ function getDWCRepo() {
 
 # Configure dnsmasq
 function configDnsmasq() {
-	echo -e "----------dnsmasq configuration----------\nYour LAN IP is:"
+	echo -e "----------dnsmasq configuration----------\n\nYour LAN IP is:"
 	hostname -I  # Get LAN IP
-	echo "Your public IP is:"
+	echo -e "\nYour public IP is:"
 	wget -q -O - ipinfo.io/ip  # Get public IP
-	echo -e "\nType in your IP:"
+	echo -e "\n\nType in your IP:"
 	read -re IP  # Get IP from user input
 	cat >>/etc/dnsmasq.conf <<EOF  # Append empty line
 
 EOF
 	# Fix port 53 already in use error
 	if [ "$version" == "Ubuntu 18.04" ] || [ "$version" == "Ubuntu 20.04" ] ||
-		[ "$version" == "Ubuntu 22.04" ];
+		[ "$version" == "Ubuntu 22.04" ] || [ "$version" == "Ubuntu 24.04" ];
 	then
 		cat >>/etc/dnsmasq.conf <<EOF
 bind-dynamic
