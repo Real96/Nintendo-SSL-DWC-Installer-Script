@@ -8,7 +8,7 @@ shopt -s extglob
 version="$NAME $VERSION_ID"
 
 function checkOSVersion() {
-	if [[ "$NAME" == "Ubuntu" && $VERSION_ID < 14 ]] || [[ "$NAME" == "Debian GNU/Linux" && $VERSION_ID < 9 ]] ||
+	if [[ "$NAME" == "Ubuntu" && $VERSION_ID -lt 14 ]] || [[ "$NAME" == "Debian GNU/Linux" && $VERSION_ID -lt 9 ]] ||
 		[[ "$NAME" != "Ubuntu" && "$NAME" != "Debian GNU/Linux" ]];
 	then
 		echo -e "This Linux distro is not currently supported!\nSupported distro: Ubuntu 14+ or Debian 9+"
@@ -48,8 +48,8 @@ function checkSources() {
 	fi
 }
 
-# Add Ubuntu 22.04 repository for Python2.7 to source file
-function addRepo() {
+# Add Ubuntu 22.04 repository for Python2.7 source file
+function addUbuntuRepo() {
 	cat >>/etc/apt/sources.list.d/ubuntu.sources <<EOF
 
 Types: deb
@@ -57,6 +57,14 @@ URIs: http://it.archive.ubuntu.com/ubuntu/
 Suites: jammy jammy-updates
 Components: universe multiverse
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF
+}
+
+# Add Debian 11 repository for Python2.7 source file
+function addDebianRepo() {
+	cat >>/etc/apt/sources.list <<EOF
+
+deb http://deb.debian.org/debian bullseye main contrib non-free
 EOF
 }
 
@@ -74,14 +82,17 @@ function getPackages() {
 	dpkg --configure -a  # Fix possible dpkg errors
 
 	if [ "$version" == "Ubuntu 24.04" ]; then
-		addRepo
+		addUbuntuRepo
+	elif [ "$version" == "Debian GNU/Linux 12" ]; then
+		addDebianRepo
 	fi
 
 	apt-get update
 	apt-get install make gcc python2.7 dnsmasq git net-tools wget -y
 
 	if [ "$version" == "Ubuntu 20.04" ] || [ "$version" == "Ubuntu 22.04" ] ||
-		[ "$version" == "Ubuntu 24.04" ] || [ "$version" == "Debian GNU/Linux 11" ];
+		[ "$version" == "Ubuntu 24.04" ] || [ "$version" == "Debian GNU/Linux 11" ] ||
+		[ "$version" == "Debian GNU/Linux 12" ];
 	then
 		getPip
 		pip install twisted
@@ -235,6 +246,7 @@ EOF
 	cat >> /etc/dnsmasq.conf <<EOF
 address=/nintendowifi.net/$IP
 listen-address=$IP,127.0.0.1
+no-resolv
 EOF
 	echo -e "\ndnsmasq setup completed!\nenabling...\n"
 	service dnsmasq restart >/dev/nul  # Restart dnsmasq
