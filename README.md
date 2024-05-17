@@ -3,7 +3,7 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 
 ## Requirements
 - VPS or virtual machine with bridged network
-- Linux Ubuntu 14 or upper or Linux Debian 9 or upper
+- Linux Ubuntu 14.04 or upper (16.04, 18.04, 20.04, 22.04, 24.04) or Linux Debian 9 or upper (10, 11, 12)
 - File `00000011.app`, which can be easily extracted from a Nintendo Wii NAND dump or downloaded following [this](https://it.dolphin-emu.org/docs/guides/wii-network-guide) guide (section `Other versions of Dolphin`)
 - WiFi with WEP/no protection, wireless type 802.11b and frequency 2.4GHz
 
