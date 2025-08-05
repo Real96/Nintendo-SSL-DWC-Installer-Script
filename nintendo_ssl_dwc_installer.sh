@@ -139,40 +139,23 @@ EOF
 	echo
 }
 
-# Enable weak ciphers in openssl conf file
-function setOpenesslConf() {
-	sed -i '1iopenssl_conf = default_conf' /usr/local/ssl/openssl.cnf  # Write at the beginning of openssl.cnf
-	cat >> /usr/local/ssl/openssl.cnf <<EOF
-
-[default_conf]
-ssl_conf = ssl_sect
-
-[ssl_sect]
-system_default = system_default_sect
-
-[system_default_sect]
-CipherString = ALL:@SECLEVEL=0
-EOF
-	ldconfig
-}
-
 function buildOpenssl() {
 	cd /var/www/openssl-1.1.1s/
-	./config enable-ssl3 enable-ssl3-method enable-weak-ssl-ciphers  # Enable weak ssl ciphers in openssl building config file
-	make
-	make install
-	setOpenesslConf
+	./config no-shared
 }
 
 function buildNginx() {
 	cd /var/www/nginx-1.23.2/
-	apt-get install libpcre3 libpcre3-dev zlib1g zlib1g-dev -y  # Packages needed for building nginx source
-	./configure --with-http_ssl_module --with-ld-opt="-L/usr/local"  # Link openssl build to nginx
+	apt-get install libpcre3-dev zlib1g-dev -y  # Packages needed for building nginx source
+	./configure \
+	--with-http_ssl_module \
+	--with-openssl=/var/www/openssl-1.1.1s \
+	--with-openssl-opt="enable-ssl3 enable-ssl3-method enable-weak-ssl-ciphers"  # Configure openssl for nginx static compilation
 	make
 	make install
 }
 
-# Ubuntu versions above 14.04 need nginx to be compiled and linked to a lowered secure level openssl compiled version
+# Ubuntu versions above 14.04 need nginx to be compiled with a lowered secure level openssl
 function buildOpensslNginx() {
 	cd /var/www/
 
@@ -183,8 +166,8 @@ function buildOpensslNginx() {
 		echo "Building openssl and nginx enabling weak ciphers..."
 		wget http://nginx.org/download/nginx-1.23.2.tar.gz https://www.openssl.org/source/openssl-1.1.1s.tar.gz
 		cat *.tar.gz | tar -xzif -  # Decompress all .tar.gz files
-		chmod -R 777 .
 		rm *.tar.gz
+		chmod -R 777 .
 		buildOpenssl
 		buildNginx
 		cd /var/www/
