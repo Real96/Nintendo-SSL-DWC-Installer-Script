@@ -146,7 +146,7 @@ function buildOpenssl() {
 }
 
 function buildNginx() {
-    cd /var/www/nginx-1.26.3/
+    cd /var/www/nginx-1.29.0/
     apt-get install libpcre3-dev zlib1g-dev -y  # Packages needed for building nginx source
     ./configure \
     --with-http_ssl_module \
@@ -165,14 +165,14 @@ function buildOpensslNginx() {
         apt-get install nginx -y
     else
         echo "Building openssl and nginx enabling weak ciphers..."
-        wget http://nginx.org/download/nginx-1.26.3.tar.gz https://www.openssl.org/source/openssl-1.1.1w.tar.gz
+        wget http://nginx.org/download/nginx-1.29.0.tar.gz https://www.openssl.org/source/openssl-1.1.1w.tar.gz
         cat *.tar.gz | tar -xzif -  # Decompress all .tar.gz files
         rm *.tar.gz
         chmod -R 777 .
         buildOpenssl
         buildNginx
         cd /var/www/
-        rm -r openssl-1.1.1w nginx-1.26.3
+        rm -r openssl-1.1.1w nginx-1.29.0
     fi
 
     echo
