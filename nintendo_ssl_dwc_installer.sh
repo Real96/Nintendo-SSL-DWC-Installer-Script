@@ -8,8 +8,9 @@ shopt -s extglob
 version="$NAME $VERSION_ID"
 
 function checkOSVersion() {
-    if [[ "$NAME" == "Ubuntu" && $VERSION_ID -lt 14 ]] || [[ "$NAME" == "Debian GNU/Linux" && $VERSION_ID -lt 9 ]] ||
-        [[ "$NAME" != "Ubuntu" && "$NAME" != "Debian GNU/Linux" ]];
+    if { [[ "$NAME" == "Ubuntu" ]] && ! dpkg --compare-versions "$VERSION_ID" ge "14.04"; } ||
+        { [[ "$NAME" == "Debian GNU/Linux" ]] && ! dpkg --compare-versions "$VERSION_ID" ge "9"; } ||
+        { [[ "$NAME" != "Ubuntu" && "$NAME" != "Debian GNU/Linux" ]]; };
     then
         echo -e "This Linux distro is not currently supported!\nSupported distro: Ubuntu 14+ or Debian 9+"
 
