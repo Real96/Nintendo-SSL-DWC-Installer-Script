@@ -38,15 +38,24 @@ function checkSudo() {
 function checkSources() {
     echo "Checking if all sources are reachable..."
 
-    if ping -c 2 github.com >/dev/nul && ping -c 2 www.openssl.org >/dev/nul &&
-        ping -c 2 www.nginx.com >/dev/nul && ping -c 2 bootstrap.pypa.io >/dev/nul;
-    then
-        echo -e "All needed sources are reachable!\n"
-    else
-        echo -e "Unable to reach all the needed sources!\n"
+    urls=(
+        "https://github.com"
+        "https://www.openssl-library.org"
+        "https://www.nginx.com"
+        "https://bootstrap.pypa.io"
+    )
 
-        exit 1
-    fi
+    for url in "${urls[@]}"; do
+        if curl --head --silent --fail "$url" >/dev/null; then
+            echo "[OK] $url is reachable"
+        else
+            echo "[ERROR] $url is NOT reachable"
+            echo -e "Unable to reach all the needed sources!\n"
+            exit 1
+        fi
+    done
+
+    echo -e "All needed sources are reachable!\n"
 }
 
 # Add Ubuntu 22.04 repository for Python2.7 source file
