@@ -16,7 +16,24 @@ Bash script which installs [this](https://github.com/Real96/dwc_network_server_e
 ## Usage
 - `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean`
 - Put the script and the file `00000011.app` in the same folder
-- Open ports `53` (<ins>**UDP**</ins>), `80` (<ins>**TCP**</ins>) and `443` (<ins>**TCP**</ins>) if you use a VPS or your public IP
+- If you use a VPS or your public IP, open the following ports:
+  - `53` (<ins>**TCP/UDP**</ins>)
+  - `80` (<ins>**TCP**</ins>)
+  - `443` (<ins>**TCP**</ins>) 
+  - `8000` (<ins>**TCP**</ins>)
+  - `9000` (<ins>**TCP**</ins>) 
+  - `9001` (<ins>**TCP**</ins>)
+  - `9002` (<ins>**TCP**</ins>) 
+  - `9003` (<ins>**TCP**</ins>)
+  - `9009` (<ins>**TCP**</ins>) 
+  - `9998` (<ins>**TCP**</ins>)
+  - `27500` (<ins>**TCP**</ins>)
+  - `27900` (<ins>**TCP**</ins>) 
+  - `27901` (<ins>**TCP**</ins>)
+  - `28910` (<ins>**TCP**</ins>) 
+  - `29900` (<ins>**TCP**</ins>)
+  - `29901` (<ins>**TCP**</ins>)
+  - `29920` (<ins>**TCP**</ins>) 
 - `cd /path/to/nintendo_ssl_dwc_installer.sh`
 - `chmod 777 nintendo_ssl_dwc_installer.sh`
 - `./nintendo_ssl_dwc_installer.sh`
